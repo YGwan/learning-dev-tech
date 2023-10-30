@@ -1,3 +1,5 @@
 rootProject.name = 'esm'
 include 'spring-security'
 include 'spring-web'
+include 'spring-hexagonal'
+

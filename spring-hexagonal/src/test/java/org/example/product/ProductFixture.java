@@ -1,9 +1,13 @@
-package org.example.utils;
+package org.example.product;
 
+import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.example.product.AddProductRequest;
 import org.example.product.DiscountPolicy;
 import org.example.product.Product;
 import org.example.product.UpdateProductRequest;
+import org.springframework.http.MediaType;
 
 public class ProductFixture {
 
@@ -25,5 +29,15 @@ public class ProductFixture {
         return new UpdateProductRequest(
                 "상품 수정", 2000, DiscountPolicy.NONE
         );
+    }
+
+    public static ExtractableResponse<Response> registerProduct(AddProductRequest request) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(request)
+                .when()
+                .post("/products")
+                .then()
+                .log().all().extract();
     }
 }

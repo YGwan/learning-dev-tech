@@ -1,10 +1,7 @@
 package org.example.product;
 
 import io.restassured.RestAssured;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 import org.example.utils.ApiTest;
-import org.example.utils.ProductFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,25 +26,15 @@ public class ProductApiTest extends ApiTest {
     void 상품_등록() {
         final var request = ProductFixture.addProductRequest();
         //API 요청
-        final var response = 상품등록(request);
+        final var response = ProductFixture.registerProduct(request);
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
-    }
-
-    private static ExtractableResponse<Response> 상품등록(AddProductRequest request) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(request)
-                .when()
-                .post("/products")
-                .then()
-                .log().all().extract();
     }
 
     @Test
     @DisplayName("상품 조회")
     void 상품_조회() {
-        상품등록(ProductFixture.addProductRequest());
+        ProductFixture.registerProduct(ProductFixture.addProductRequest());
 
         final Long productId = 1L;
 
@@ -62,7 +49,7 @@ public class ProductApiTest extends ApiTest {
 
     @Test
     void 상품_수정() {
-        상품등록(ProductFixture.addProductRequest());
+        ProductFixture.registerProduct(ProductFixture.addProductRequest());
 
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

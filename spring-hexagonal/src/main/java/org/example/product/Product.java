@@ -3,7 +3,6 @@ package org.example.product;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.sql.Update;
 
 import javax.persistence.*;
 

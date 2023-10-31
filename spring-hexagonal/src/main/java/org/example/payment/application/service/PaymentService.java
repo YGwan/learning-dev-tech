@@ -1,6 +1,9 @@
-package org.example.payment;
+package org.example.payment.application.service;
 
 import org.example.order.Order;
+import org.example.payment.application.port.PaymentPort;
+import org.example.payment.application.dto.PaymentRequest;
+import org.example.payment.domain.Payment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

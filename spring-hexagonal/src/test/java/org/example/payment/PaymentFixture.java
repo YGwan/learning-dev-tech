@@ -1,5 +1,7 @@
 package org.example.payment;
 
+import org.example.payment.application.dto.PaymentRequest;
+
 public class PaymentFixture {
 
     public static PaymentRequest paymentRequest() {

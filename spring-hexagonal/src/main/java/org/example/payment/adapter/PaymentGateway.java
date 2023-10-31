@@ -1,4 +1,4 @@
-package org.example.payment;
+package org.example.payment.adapter;
 
 public interface PaymentGateway {
 

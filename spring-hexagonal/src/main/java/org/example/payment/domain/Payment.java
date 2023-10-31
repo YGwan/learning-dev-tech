@@ -1,4 +1,4 @@
-package org.example.payment;
+package org.example.payment.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;

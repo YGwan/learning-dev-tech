@@ -1,5 +1,10 @@
-package org.example.product;
+package org.example.product.application.service;
 
+import org.example.product.application.port.ProductPort;
+import org.example.product.application.dto.AddProductRequest;
+import org.example.product.application.dto.GetProductResponse;
+import org.example.product.application.dto.UpdateProductRequest;
+import org.example.product.domain.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

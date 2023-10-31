@@ -1,4 +1,4 @@
-package org.example.product;
+package org.example.product.domain;
 
 public enum DiscountPolicy {
     NONE {

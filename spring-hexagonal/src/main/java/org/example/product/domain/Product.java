@@ -1,8 +1,9 @@
-package org.example.product;
+package org.example.product.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.product.application.dto.UpdateProductRequest;
 
 import javax.persistence.*;
 

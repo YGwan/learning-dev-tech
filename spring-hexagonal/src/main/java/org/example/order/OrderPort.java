@@ -1,6 +1,6 @@
 package org.example.order;
 
-import org.example.product.Product;
+import org.example.product.domain.Product;
 
 public interface OrderPort {
 

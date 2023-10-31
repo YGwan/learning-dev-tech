@@ -3,6 +3,10 @@ package org.example.product;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.example.product.application.dto.AddProductRequest;
+import org.example.product.application.dto.UpdateProductRequest;
+import org.example.product.domain.DiscountPolicy;
+import org.example.product.domain.Product;
 import org.springframework.http.MediaType;
 
 public class ProductFixture {

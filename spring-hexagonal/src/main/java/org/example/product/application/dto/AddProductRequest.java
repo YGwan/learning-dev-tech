@@ -1,6 +1,7 @@
-package org.example.product;
+package org.example.product.application.dto;
 
 import lombok.Getter;
+import org.example.product.domain.DiscountPolicy;
 
 @Getter
 public class AddProductRequest {

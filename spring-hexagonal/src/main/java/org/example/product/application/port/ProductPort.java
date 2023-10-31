@@ -1,4 +1,6 @@
-package org.example.product;
+package org.example.product.application.port;
+
+import org.example.product.domain.Product;
 
 public interface ProductPort {
 

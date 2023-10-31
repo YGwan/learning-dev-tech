@@ -1,7 +1,7 @@
 package org.example.order;
 
-import org.example.product.Product;
-import org.example.product.ProductRepository;
+import org.example.product.domain.Product;
+import org.example.product.adapter.ProductRepository;
 import org.springframework.stereotype.Component;
 
 @Component

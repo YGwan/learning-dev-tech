@@ -1,6 +1,9 @@
 package org.example.product;
 
 import io.restassured.RestAssured;
+import org.example.product.adapter.ProductRepository;
+import org.example.product.application.port.ProductPort;
+import org.example.product.application.service.ProductService;
 import org.example.utils.ApiTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.example.product.ProductFixture.*;
 
 public class ProductApiTest extends ApiTest {
 
@@ -24,9 +25,9 @@ public class ProductApiTest extends ApiTest {
     @Test
     @DisplayName("상품 등록")
     void 상품_등록() {
-        final var request = ProductFixture.addProductRequest();
+        final var request = addProductRequest();
         //API 요청
-        final var response = ProductFixture.registerProduct(request);
+        final var response = registerProduct(request);
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
@@ -34,7 +35,7 @@ public class ProductApiTest extends ApiTest {
     @Test
     @DisplayName("상품 조회")
     void 상품_조회() {
-        ProductFixture.registerProduct(ProductFixture.addProductRequest());
+        registerProduct(addProductRequest());
 
         final Long productId = 1L;
 
@@ -49,11 +50,11 @@ public class ProductApiTest extends ApiTest {
 
     @Test
     void 상품_수정() {
-        ProductFixture.registerProduct(ProductFixture.addProductRequest());
+        registerProduct(addProductRequest());
 
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(ProductFixture.updateProductRequest())
+                .body(updateProductRequest())
                 .when()
                 .put("/products/{productId}", 1)
                 .then().log().all().extract();

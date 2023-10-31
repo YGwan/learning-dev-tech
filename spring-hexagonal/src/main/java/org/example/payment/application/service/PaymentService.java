@@ -1,6 +1,6 @@
 package org.example.payment.application.service;
 
-import org.example.order.Order;
+import org.example.order.domain.Order;
 import org.example.payment.application.port.PaymentPort;
 import org.example.payment.application.dto.PaymentRequest;
 import org.example.payment.domain.Payment;

@@ -3,6 +3,7 @@ package org.example.order;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.example.order.application.dto.CreateOrderRequest;
 import org.springframework.http.MediaType;
 
 public class OrderFixture {

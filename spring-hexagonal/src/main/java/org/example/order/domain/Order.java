@@ -1,4 +1,4 @@
-package org.example.order;
+package org.example.order.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;

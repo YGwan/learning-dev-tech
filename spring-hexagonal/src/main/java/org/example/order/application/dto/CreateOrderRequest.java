@@ -1,4 +1,4 @@
-package org.example.order;
+package org.example.order.application.dto;
 
 import lombok.Getter;
 

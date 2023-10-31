@@ -1,5 +1,6 @@
 package org.example.order;
 
+import org.example.order.domain.Order;
 import org.example.product.ProductFixture;
 import org.junit.jupiter.api.Test;
 

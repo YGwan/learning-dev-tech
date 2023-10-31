@@ -1,6 +1,6 @@
 package org.example.payment.application.port;
 
-import org.example.order.Order;
+import org.example.order.domain.Order;
 import org.example.payment.domain.Payment;
 
 public interface PaymentPort {

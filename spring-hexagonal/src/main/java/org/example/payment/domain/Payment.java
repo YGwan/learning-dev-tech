@@ -3,7 +3,7 @@ package org.example.payment.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.order.Order;
+import org.example.order.domain.Order;
 
 import javax.persistence.*;
 

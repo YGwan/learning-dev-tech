@@ -15,8 +15,8 @@ public class ProductService {
         this.productPort = productPort;
     }
 
-    @PostMapping
     @Transactional
+    @PostMapping
     public ResponseEntity<Void> addProduct(@RequestBody AddProductRequest request) {
         final var product = new Product(request.getName(), request.getPrice(), request.getDiscountPolicy());
         productPort.save(product);
@@ -30,8 +30,8 @@ public class ProductService {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{productId}")
     @Transactional
+    @PutMapping("/{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable Long productId, @RequestBody UpdateProductRequest request) {
         final var product = productPort.getProduct(productId);
         product.update(request);

@@ -33,4 +33,8 @@ public class Product {
         this.price = request.getPrice();
         this.discountPolicy = request.getDiscountPolicy();
     }
+
+    public int getDiscountedPrice() {
+        return discountPolicy.applyDiscount(price);
+    }
 }

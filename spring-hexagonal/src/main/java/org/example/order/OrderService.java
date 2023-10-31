@@ -3,6 +3,7 @@ package org.example.order;
 import org.example.product.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class OrderService {
         this.orderPort = orderPort;
     }
 
+    @Transactional
     @PostMapping
     public ResponseEntity<Void> createOrder(@RequestBody CreateOrderRequest request) {
         final Product product = orderPort.getProductById(request.getProductId());

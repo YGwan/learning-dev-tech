@@ -29,4 +29,12 @@ public class ProductService {
         final var response = GetProductResponse.from(product);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{productId}")
+    @Transactional
+    public ResponseEntity<Void> updateProduct(@PathVariable Long productId, @RequestBody UpdateProductRequest request) {
+        final var product = productPort.getProduct(productId);
+        product.update(request);
+        return ResponseEntity.ok().build();
+    }
 }

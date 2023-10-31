@@ -3,6 +3,7 @@ package org.example.product;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.sql.Update;
 
 import javax.persistence.*;
 
@@ -26,5 +27,11 @@ public class Product {
         this.name = name;
         this.price = price;
         this.discountPolicy = discountPolicy;
+    }
+
+    public void update(UpdateProductRequest request) {
+        this.name = request.getName();
+        this.price = request.getPrice();
+        this.discountPolicy = request.getDiscountPolicy();
     }
 }

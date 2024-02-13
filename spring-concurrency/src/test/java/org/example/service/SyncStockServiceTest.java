@@ -11,14 +11,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SpringBootTest
-class StockServiceTest {
+class SyncStockServiceTest {
 
     @Autowired
-    private StockService stockService;
+    private SyncStockService stockService;
 
     @Autowired
     private StockRepository stockRepository;
-
 
     @BeforeEach
     public void before() {
@@ -35,7 +34,7 @@ class StockServiceTest {
     public void decreaseQuantityTest() {
         stockService.decrease(1L, 1L);
 
-        Stock stock = stockService.findById(1L);
+        Stock stock = stockService.findByProductId(1L);
         Assertions.assertEquals(99, stock.getQuantity());
     }
 
@@ -57,7 +56,7 @@ class StockServiceTest {
         }
 
         latch.await();
-        Stock stock = stockService.findById(1L);
+        Stock stock = stockService.findByProductId(1L);
         Assertions.assertEquals(0, stock.getQuantity());
     }
 }

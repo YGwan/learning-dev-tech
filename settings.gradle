@@ -1,4 +1,3 @@
 rootProject.name = 'esm'
 include 'spring-hexagonal'
 include 'spring-concurrency'
-

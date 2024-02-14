@@ -50,7 +50,7 @@ class LettuceStockServiceTest {
             executorService.submit(() -> {
                 try {
                     stockFacade.decrease(1L, 1L);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 } finally {
                     latch.countDown();
                 }

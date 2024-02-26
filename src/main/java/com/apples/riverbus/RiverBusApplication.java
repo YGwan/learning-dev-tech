@@ -8,6 +8,7 @@ public class RiverBusApplication {
 
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(RiverBusApplication.class);
+        application.setAdditionalProfiles("dev");
         application.run(args);
     }
 }

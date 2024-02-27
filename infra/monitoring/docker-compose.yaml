@@ -12,3 +12,5 @@ services:
       - '--web.enable-lifecycle'  # Allows you to reload configuration files without restarting api
       - '--config.file=/etc/prometheus/prometheus.yaml'
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

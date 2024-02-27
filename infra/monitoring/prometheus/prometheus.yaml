@@ -11,6 +11,6 @@ global:
 # A list of scrape configurations.
 scrape_configs:
   - job_name: 'monitoring-system'
-    metrics_path: '/actuator/metrics'     # 옵션 - prometheus가 metrics를 얻기위해 참조하는 URI를 변경할 수 있음 | default = /metrics
+    metrics_path: '/actuator/prometheus'     # 옵션 - prometheus가 metrics를 얻기위해 참조하는 URI를 변경할 수 있음 | default = /metrics
     static_configs:
-      - targets: ['localhost:8080']
+      - targets: ['host.docker.internal:8080']

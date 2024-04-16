@@ -2,12 +2,15 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.example.aop.TransactionAspect;
 import org.example.entity.User;
 import org.example.service.MyTransactionalService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 
+@Import(TransactionAspect.class)
 @SpringBootApplication
 public class TransactionApplication {
 

@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 import org.example.dao.UserDao;
 import org.example.entity.User;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class StandardTransactionService {
 
     private final UserDao userDao;

@@ -7,10 +7,12 @@ import org.example.dao.UserDao;
 import org.example.entity.User;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+@Service
 public class AbstractTransactionService {
 
     private final DataSource dataSource;

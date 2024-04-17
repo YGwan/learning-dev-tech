@@ -39,8 +39,6 @@ public synchronized void decrease(Long id, Long quantity) {
 <br>
 
 ### 3. 비관적 락(Pessimistic Lock) 사용
-
-### 비관적 락이란?
 - 데이터 갱신 시 충돌이 발생할 것으로 예상하고 미리 잠금을 하는 방식
 - 데드락이 발생할 수 있다.
 - 락이 필요하지 않은 상황에서도 기본적으로 락을 잡기 때문에 안전하지만, 성능 저하가 발생할 수 있다.
@@ -68,6 +66,8 @@ Optional<Stock> findByProductIdWithPessimisticLock(Long productId);
   Optional<Stock> findByProductIdWithOptimisticLock(Long productId);
   
   ```
+
+<br>
 
 - 재시도 처리 - 실패시 단순 재시도 무한반복 (50ms 만큼 대기 후 재시도)
   ``` java
@@ -105,6 +105,8 @@ Optional<Stock> findByProductIdWithPessimisticLock(Long productId);
   @Query(value = "select release_lock(:key)", nativeQuery = true)
   void releaseLock(String key);
   ```
+
+<br>
 
 - 적용
   ``` java
@@ -150,6 +152,8 @@ Optional<Stock> findByProductIdWithPessimisticLock(Long productId);
   }
   ```
 
+<br>
+
 - 적용
   ``` java
    public void decrease(Long productId, Long quantity) throws InterruptedException {
@@ -164,7 +168,9 @@ Optional<Stock> findByProductIdWithPessimisticLock(Long productId);
       }
   }
   ```
-  
+
+<br>
+
 ### 7. Redisson Lock
  - 추가적인 라이브러리 필요 (Redisson)
  - pub & sub 방식으로 분산락을 구현
@@ -193,3 +199,9 @@ public void decrease(Long productId, Long quantity) {
     }
 }
 ```
+
+<br>
+
+<br>
+
+<br>

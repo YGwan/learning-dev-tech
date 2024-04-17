@@ -42,7 +42,7 @@ public class UserDao {
 
     private static void insertUser(User user, Connection conn) throws SQLException {
         if (Objects.equals(user.getName(), "A")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("occur error");
         }
 
         String sql = "INSERT INTO user(id, name, age) VALUES (?, ?, ?)";

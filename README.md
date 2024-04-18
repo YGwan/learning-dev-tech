@@ -9,12 +9,14 @@
 
 ---
 
+<br>
+
 ### 동시성 처리 (Concurrency)
 - [동시성 처리 - 정리](spring-concurrency%2FREADME.md)
 
 <br>
 
-### 트랜잭션 처리 & 발전 과정 (Transaction)
+### 트랜잭션 처리 (Transaction)
 - [트랜잭션 처리 - 정리](spring-transaction%2FREADME.md)
 
 <br>

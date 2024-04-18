@@ -1,4 +1,4 @@
-# Transacation이란
+# 트랜잭션이란?
 
 <br>
 
@@ -15,14 +15,13 @@
 
 <br>
 
+---
+
 ## JDBC & JPA를 사용한 초기 트랜잭션 구현 방법
 
 <br>
 
-### 예시 코드
-- JPA를 기준으로 설명
-
-<br>
+#### 예시 코드 (JPA를 기준으로 설명)
 
 ``` java
 
@@ -52,7 +51,7 @@ public void joinAllUserFromJPA(List<User> users) throws SQLException {
 
 <br>
 
-### 한계점
+#### 한계점
 - 데이터 엑세스 기술에 의존성이 강제된다. (데이터 접근 기술에 따라 코드 내용이 변경된다.)
 - 트랜잭션 관리를 직접 해야되기 때문에 번거롭다.(트랜잭션 open & close)
 - Service 코드 내에 비즈니스 로직 외에 트랜잭션 처리 관련 코드가 추가되기 때문에 관리가 어렵다. (try ~ catch 구문 등)
@@ -74,10 +73,12 @@ public void joinAllUserFromJPA(List<User> users) throws SQLException {
 
 3. 선언적 트랜잭션
     - 비즈니스 로직과 트랜잭션 관련 로직을 AOP를 사용해 완전히 분리했다.
-
+    
 ```
 
 <br>
+
+---
 
 ## Spring에서의 트랜잭션 처리 방법
 
@@ -90,10 +91,7 @@ public void joinAllUserFromJPA(List<User> users) throws SQLException {
 
 <br>
 
-### 예시 코드
-- JDBC를 기준으로 설명
-
-<br>
+#### 예시 코드 (JDBC를 기준으로 설명)
 
 ``` java
 private void joinAllUserFromSyncTranByJdbc(List<User> users) throws SQLException {
@@ -159,6 +157,8 @@ private void joinAllUserFromSyncTranByJdbc(List<User> users) throws SQLException
 
 <br>
 
+---
+
 ### 2. 트랜잭션 추상화
 - 트랜잭션 매니저의 기능을 인터페이스로 정의하고 JDBC, JPA 등의 데이터 접근 기술에 따른 구현체를 사용
 - 서비스 계층은 구현체가 아닌 인터페이스에 의존
@@ -166,9 +166,7 @@ private void joinAllUserFromSyncTranByJdbc(List<User> users) throws SQLException
 
 <br>
 
-### 예시 코드
-
-<br>
+#### 예시 코드
 
 ``` java
 public void joinAllUserFromAbstractTran(List<User> users) {
@@ -195,10 +193,12 @@ public void joinAllUserFromAbstractTran(List<User> users) {
 
 <br>
 
-### 한계점
+#### 한계점
 - 아직까지도 비즈니스 로직 외의 다른 작업을 추가로 서비스 로직에서 해야한다. (try ~ catch)
 
 <br>
+
+---
 
 ### 3. 선언적 트랜잭션
 - 스프링은 선언적 트랜잭션 기술을 통해 트랜잭션 생성 및 종료 등의 관련 내용을 비즈니스 로직과 분리함
@@ -209,17 +209,15 @@ public void joinAllUserFromAbstractTran(List<User> users) {
 
 <br>
 
-- 프록시 패턴이란?
-    - 프록시 패턴은 어떤 객체에 대한 접근을 제어하는 용도로 대리인이나 대변인에 해당하는 객체를 제공하는 패턴
-    - 스프링 AOP는 프록시 기반의 AOP 구현체이며, 스프링 Bean에만 AOP 적용 가능
-    - 프록시는 클라이언트로부터 요청을 받으면 타겟 클래스의 메소드로 위임하고, 경우에 따라 부가 작업 추가
-    - 프록시는 클라이언트가 타겟 클래스를 호출하는 과정에만 동작
+#### 프록시 패턴이란?
+  - 프록시 패턴은 어떤 객체에 대한 접근을 제어하는 용도로 대리인이나 대변인에 해당하는 객체를 제공하는 패턴
+  - 스프링 AOP는 프록시 기반의 AOP 구현체이며, 스프링 Bean에만 AOP 적용 가능
+  - 프록시는 클라이언트로부터 요청을 받으면 타겟 클래스의 메소드로 위임하고, 경우에 따라 부가 작업 추가
+  - 프록시는 클라이언트가 타겟 클래스를 호출하는 과정에만 동작
 
 <br>
 
-### 예시 코드
-
-<br>
+#### 예시 코드
 
 ``` java
 @Transactional
@@ -241,7 +239,5 @@ public void joinAllUser(List<User> users) {
     - propagation, isolation, timeout, readOnly, rollbackFor, noRollbackFor 속성 지정 가능
 
 <br>
-
 <br>
-
 <br>

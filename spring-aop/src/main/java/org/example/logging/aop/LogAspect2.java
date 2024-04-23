@@ -5,9 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
 @Aspect
 public class LogAspect2 {
@@ -17,8 +15,8 @@ public class LogAspect2 {
 
     @Around("logServicePoint()")
     public Object doLogging(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("aop test");
-        log.info("aop logging test");
+        System.out.println("aop test v2");
+        log.info("aop logging test v2");
         return joinPoint.proceed();
     }
 }

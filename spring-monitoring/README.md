@@ -19,7 +19,6 @@
 ### Spring Actuator
 - 스프링 프레임워크에서 제공되는 라이브러리 중 하나
 - 애플리케이션 상태를 모니터링 할 수 있는 지표, 메트릭 수집을 위한 HTTP Endpoint 제공(health, metrics, prometheus 등)
- 
 
 <br>
 
@@ -42,7 +41,7 @@
 - disk.total
 - hikaricp.connections
 - process.cpu.usage
- ...
+...
 
 <br>
 
@@ -78,10 +77,10 @@ Spring Actuator & Custom을 통해 얻은 지표 값들을 모니터링 툴에 �
 - 오픈 소스 모니터링 시스템 및 경고 도구로, 다양한 작업에서 발생하는 메트릭을 수집하고 저장하는 데 사용
 - 메트릭 정보를 지속적으로 수집하고, 이를 자체 DB에 저장
 - spring actuator가 제공하는 /metrics 엔드포인트의 JSON 포맷을 prometheus가 사용 X -> 마이크로미터 프로메테우스 구현체 라이브러리 추가 필요
-  - 마이크로미터 프로메테우스 구현체 라이브러리
-    ``` java
-    implementation 'io.micrometer:micrometer-registry-prometheus'
-    ```
+- 마이크로미터 프로메테우스 구현체 라이브러리
+  ``` java
+  implementation 'io.micrometer:micrometer-registry-prometheus'
+  ```
  
 <br>
 

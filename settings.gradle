@@ -5,3 +5,5 @@ include 'spring-concurrency'
 include 'spring-monitoring'
 include 'spring-transaction'
 include 'spring-aop'
+include 'spring-test-code'
+

@@ -8,7 +8,16 @@
 - 검증 속도가 빠르고 안정적으로 테스트 가능
 
 ### 통합 테스트 (Integration test)
+- 단위테스트만으로는 기능 전체의 테스트가 불각능함(클래스 & 메서드 단위의 작은 범위이기 때문에)
 - 단위 테스트에서 검증된 개별 기능들을 결합하여 예상대로 상호작용 하고 있는지를 확인하는 테스트
+
+<br>
+
+```
+
+테스트 : 꼼꼼한 단위 테스트 + 큰 기능 단위를 검증하는 통합 테스트 
+
+```
 
 <br>
 
@@ -36,7 +45,7 @@
 - 테스트 코드 작성을 원활하게 돕는 테스트 라이브러리
 - 객체의 상태나 동작을 검증하는데 사용
 - AssertThat(검증 대상)으로 시작하여 메서드 체이닝을 통해 가독성 있는 코드 작성 가능
-- ```testImplementation 'org.springframework.boot:spring-boot-starter-test' ``` 해당 의존성을 추가하면 AssertJ 추가 가능
+- ```testImplementation 'org.springframework.boot:spring-boot-starter-test'``` 해당 의존성을 추가하면 AssertJ 추가 가능
 
 <br>
 

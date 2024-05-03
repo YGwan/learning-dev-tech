@@ -1,5 +1,6 @@
 dependencies {
     implementation 'mysql:mysql-connector-java'
+    testImplementation 'mysql:mysql-connector-java'
 
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,17 +1,14 @@
 package org.example.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.domain.base.BaseEntity;
 import org.example.domain.constant.ProductStatus;
 import org.example.domain.constant.ProductType;
+
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,4 +30,13 @@ public class Product extends BaseEntity {
     private String name;
 
     private int price;
+
+    @Builder
+    private Product(String productNumber, ProductType productType, ProductStatus productStatus, String name, int price) {
+        this.productNumber = productNumber;
+        this.productType = productType;
+        this.productStatus = productStatus;
+        this.name = name;
+        this.price = price;
+    }
 }

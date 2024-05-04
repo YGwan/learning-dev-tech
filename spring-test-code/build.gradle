@@ -1,6 +1,8 @@
 dependencies {
+    //db
     implementation 'mysql:mysql-connector-java'
-    testImplementation 'mysql:mysql-connector-java'
+    implementation 'com.h2database:h2'
+    testImplementation 'com.h2database:h2'
 
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

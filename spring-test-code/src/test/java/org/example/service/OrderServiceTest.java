@@ -2,7 +2,6 @@ package org.example.service;
 
 import org.example.domain.Product;
 import org.example.dto.request.OrderCreateRequest;
-import org.example.dto.response.OrderResponse;
 import org.example.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,11 +59,17 @@ class OrderServiceTest {
     @Test
     void createOrderTest() {
         var request = OrderCreateRequest.builder()
-                .productNumbers(List.of("001", "002")).build();
-
-        OrderResponse response = orderService.createOrder(request);
+                .productNumbers(List.of("001", "002"))
+                .build();
+        var registeredDateTime = LocalDateTime.now();
+        var response = orderService.createOrder(request, registeredDateTime);
 
         assertThat(response.getId()).isNotNull();
+
+        assertThat(response)
+                .extracting("registeredDateTime", "totalPrice")
+                .contains(registeredDateTime, 8500);
+
         assertThat(response.getProducts()).hasSize(2)
                 .extracting("productNumber", "price")
                 .containsExactlyInAnyOrder(

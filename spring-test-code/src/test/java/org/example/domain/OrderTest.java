@@ -19,11 +19,30 @@ class OrderTest {
 
     @BeforeAll
     public static void init() {
-        var product1 = Product.builder().productNumber("001").productType(HANDMADE).productStatus(SELLING).name("아메리카노").price(4000).build();
+        var product1 = Product.builder()
+                .productNumber("001")
+                .productType(HANDMADE)
+                .productStatus(SELLING)
+                .name("아메리카노")
+                .price(4000)
+                .build();
 
-        var product2 = Product.builder().productNumber("002").productType(HANDMADE).productStatus(HOLD).name("카페라떼").price(4500).build();
+        var product2 = Product
+                .builder()
+                .productNumber("002")
+                .productType(HANDMADE)
+                .productStatus(HOLD)
+                .name("카페라떼")
+                .price(4500)
+                .build();
 
-        var product3 = Product.builder().productNumber("003").productType(HANDMADE).productStatus(STOP).name("팥빙수").price(7000).build();
+        var product3 = Product.builder()
+                .productNumber("003")
+                .productType(HANDMADE)
+                .productStatus(STOP)
+                .name("팥빙수")
+                .price(7000)
+                .build();
 
         products.add(product1);
         products.add(product2);

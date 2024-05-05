@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.domain.Product;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,8 @@ class ProductRepositoryTest {
     @Autowired
     private ProductRepository productRepository;
 
-    @DisplayName("test")
-    @Test
-    void test() {
+    @BeforeEach
+    public void init() {
         var product1 = Product.builder()
                 .productNumber("001")
                 .productType(HANDMADE)
@@ -47,8 +47,25 @@ class ProductRepositoryTest {
                 .build();
 
         productRepository.saveAll(List.of(product1, product2, product3));
+    }
 
+    @DisplayName("판매상태에 따른 상품들을 조회한다.")
+    @Test
+    void findAllByProductStatus() {
         var products = productRepository.findAllByProductStatusIn(List.of(SELLING, HOLD));
+
+        assertThat(products).hasSize(2)
+                .extracting("productNumber", "name", "productStatus")
+                .containsExactlyInAnyOrder(
+                        tuple("001", "아메리카노", SELLING),
+                        tuple("002", "카페라떼", HOLD)
+                );
+    }
+
+    @DisplayName("상품 번호에 따른 상품들을 조회한다,")
+    @Test
+    void test() {
+        var products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
 
         assertThat(products).hasSize(2)
                 .extracting("productNumber", "name", "productStatus")

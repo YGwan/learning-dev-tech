@@ -13,9 +13,7 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.example.domain.constant.ProductStatus.*;
 import static org.example.domain.constant.ProductType.HANDMADE;
 
-//@SpringBootTest
 @DataJpaTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ProductRepositoryTest {
 
     @Autowired

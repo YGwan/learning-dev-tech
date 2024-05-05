@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -25,8 +25,8 @@ public class ProductResponse {
 
     @Builder
     private ProductResponse(Long id, String productNumber, ProductType productType,
-        ProductStatus productStatus,
-        String name, int price) {
+                            ProductStatus productStatus,
+                            String name, int price) {
         this.id = id;
         this.productNumber = productNumber;
         this.productType = productType;
@@ -37,12 +37,12 @@ public class ProductResponse {
 
     public static ProductResponse of(Product product) {
         return ProductResponse.builder()
-            .id(product.getId())
-            .productNumber(product.getProductNumber())
-            .productType(product.getProductType())
-            .productStatus(product.getProductStatus())
-            .name(product.getName())
-            .price(product.getPrice())
-            .build();
+                .id(product.getId())
+                .productNumber(product.getProductNumber())
+                .productType(product.getProductType())
+                .productStatus(product.getProductStatus())
+                .name(product.getName())
+                .price(product.getPrice())
+                .build();
     }
 }

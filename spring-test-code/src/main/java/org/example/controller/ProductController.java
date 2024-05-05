@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.ProductResponse;
+import org.example.dto.response.ProductResponse;
 import org.example.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

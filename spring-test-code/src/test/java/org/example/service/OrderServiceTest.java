@@ -2,7 +2,10 @@ package org.example.service;
 
 import org.example.domain.Product;
 import org.example.dto.request.OrderCreateRequest;
+import org.example.repository.OrderProductRepository;
+import org.example.repository.OrderRepository;
 import org.example.repository.ProductRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,10 +27,16 @@ class OrderServiceTest {
     private ProductRepository productRepository;
 
     @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @Autowired
     private OrderService orderService;
 
     @BeforeEach
-    public void init() {
+    void init() {
         var product1 = Product.builder()
                 .productNumber("001")
                 .productType(HANDMADE)
@@ -55,9 +64,16 @@ class OrderServiceTest {
         productRepository.saveAll(List.of(product1, product2, product3));
     }
 
+    @AfterEach
+    void end() {
+        orderProductRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+    }
+
     @DisplayName("주문번호 리스트를 받고 주문을 생성한다.")
     @Test
-    void createOrderTest() {
+    void createOrder() {
         var request = OrderCreateRequest.builder()
                 .productNumbers(List.of("001", "002"))
                 .build();
@@ -78,4 +94,26 @@ class OrderServiceTest {
                 );
     }
 
+    @DisplayName("중복되는 판매 상품 번호를 주문번호 리스트를 받고 주문을 생성한다.")
+    @Test
+    void createOrderWithDuplicatedProductNumber() {
+        var request = OrderCreateRequest.builder()
+                .productNumbers(List.of("001", "001"))
+                .build();
+        var registeredDateTime = LocalDateTime.now();
+        var response = orderService.createOrder(request, registeredDateTime);
+
+        assertThat(response.getId()).isNotNull();
+
+        assertThat(response)
+                .extracting("registeredDateTime", "totalPrice")
+                .contains(registeredDateTime, 8000);
+
+        assertThat(response.getProducts()).hasSize(2)
+                .extracting("productNumber", "price")
+                .containsExactlyInAnyOrder(
+                        tuple("001", 4000),
+                        tuple("001", 4000)
+                );
+    }
 }

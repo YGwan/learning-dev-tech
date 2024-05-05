@@ -1,7 +1,7 @@
 package org.example.order.application.service;
 
-import org.example.order.application.port.OrderPort;
 import org.example.order.application.dto.CreateOrderRequest;
+import org.example.order.application.port.OrderPort;
 import org.example.order.domain.Order;
 import org.example.product.domain.Product;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
-public class OrderService {
+public class HxOrderService {
 
     private final OrderPort orderPort;
 
-    public OrderService(OrderPort orderPort) {
+    public HxOrderService(OrderPort orderPort) {
         this.orderPort = orderPort;
     }
 

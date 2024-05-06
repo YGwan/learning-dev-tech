@@ -62,9 +62,9 @@ class ProductRepositoryTest {
                 );
     }
 
-    @DisplayName("상품 번호에 따른 상품들을 조회한다,")
+    @DisplayName("상품 번호 리스트에 따른 상품들을 조회한다,")
     @Test
-    void test() {
+    void findAllByProductNumbers() {
         var products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
 
         assertThat(products).hasSize(2)

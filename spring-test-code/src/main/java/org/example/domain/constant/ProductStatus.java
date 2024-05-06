@@ -1,8 +1,9 @@
 package org.example.domain.constant;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor

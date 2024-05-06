@@ -38,7 +38,7 @@ public class Stock extends BaseEntity {
     }
 
     public boolean isQuantityEnough(int quantity) {
-        return this.quantity > quantity;
+        return this.quantity >= quantity;
     }
 
 

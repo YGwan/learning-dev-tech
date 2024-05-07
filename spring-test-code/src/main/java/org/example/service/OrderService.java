@@ -12,6 +12,7 @@ import org.example.repository.ProductRepository;
 import org.example.repository.StockRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +47,7 @@ public class OrderService {
                 .collect(Collectors.groupingBy(num -> num, Collectors.counting()));
 
         // 재고 차감 지도
-        for (String productNumber : new HashSet<>(productNumbers)) {
+        for (String productNumber : new HashSet<>(stockProductNumbers)) {
             Stock stock = stockMap.get(productNumber);
             int quantity = productNumberCountingMap.get(productNumber).intValue();
 

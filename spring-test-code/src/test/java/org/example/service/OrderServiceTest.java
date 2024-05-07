@@ -7,13 +7,13 @@ import org.example.repository.OrderProductRepository;
 import org.example.repository.OrderRepository;
 import org.example.repository.ProductRepository;
 import org.example.repository.StockRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +23,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.example.domain.constant.ProductStatus.*;
 import static org.example.domain.constant.ProductType.*;
 
-@Transactional
+//@Transactional
 @SpringBootTest
 class OrderServiceTest {
 
@@ -68,22 +68,32 @@ class OrderServiceTest {
                 .price(7000)
                 .build();
 
-        productRepository.saveAll(List.of(product1, product2, product3));
+        var product4 = Product.builder()
+                .productNumber("004")
+                .productType(HANDMADE)
+                .productStatus(STOP)
+                .name("아이스크림")
+                .price(5000)
+                .build();
+
+        productRepository.saveAll(List.of(product1, product2, product3, product4));
     }
 
-//    @AfterEach
-//    void end() {
-//        orderProductRepository.deleteAllInBatch();
-//        productRepository.deleteAllInBatch();
-//        orderRepository.deleteAllInBatch();
-//    }
+    @AfterEach
+    void end() {
+        orderProductRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+        stockRepository.deleteAllInBatch();
+    }
 
     @DisplayName("주문번호 리스트를 받고 주문을 생성한다.")
     @Test
     void createOrder() {
         var request = OrderCreateRequest.builder()
-                .productNumbers(List.of("001", "002"))
+                .productNumbers(List.of("003", "004"))
                 .build();
+
         var registeredDateTime = LocalDateTime.now();
         var response = orderService.createOrder(request, registeredDateTime);
 
@@ -91,13 +101,13 @@ class OrderServiceTest {
 
         assertThat(response)
                 .extracting("registeredDateTime", "totalPrice")
-                .contains(registeredDateTime, 8500);
+                .contains(registeredDateTime, 12000);
 
         assertThat(response.getProducts()).hasSize(2)
                 .extracting("productNumber", "price")
                 .containsExactlyInAnyOrder(
-                        tuple("001", 4000),
-                        tuple("002", 4500)
+                        tuple("003", 7000),
+                        tuple("004", 5000)
                 );
     }
 
@@ -105,7 +115,7 @@ class OrderServiceTest {
     @Test
     void createOrderWithDuplicatedProductNumber() {
         var request = OrderCreateRequest.builder()
-                .productNumbers(List.of("001", "001"))
+                .productNumbers(List.of("003", "003"))
                 .build();
 
         var registeredDateTime = LocalDateTime.now();
@@ -115,13 +125,13 @@ class OrderServiceTest {
 
         assertThat(response)
                 .extracting("registeredDateTime", "totalPrice")
-                .contains(registeredDateTime, 8000);
+                .contains(registeredDateTime, 14000);
 
         assertThat(response.getProducts()).hasSize(2)
                 .extracting("productNumber", "price")
                 .containsExactlyInAnyOrder(
-                        tuple("001", 4000),
-                        tuple("001", 4000)
+                        tuple("003", 7000),
+                        tuple("003", 7000)
                 );
     }
 

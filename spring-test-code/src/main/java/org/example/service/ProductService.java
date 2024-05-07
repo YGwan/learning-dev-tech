@@ -7,10 +7,12 @@ import org.example.dto.request.CreateProductRequest;
 import org.example.dto.response.ProductResponse;
 import org.example.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -19,6 +21,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    @Transactional(readOnly = true)
     public List<ProductResponse> getSellingProducts() {
         List<Product> products = productRepository.findAllByProductStatusIn(
                 ProductStatus.sellingStatus());

@@ -61,7 +61,6 @@ class ProductServiceTest {
         productRepository.deleteAllInBatch();
     }
 
-
     @DisplayName("신규 상품을 등록 시 상품 번호는 가장 최근 상품 번호에서 1 증가한 값으로 설정된다.")
     @Test
     void createProduct() {

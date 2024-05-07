@@ -27,6 +27,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final StockRepository stockRepository;
 
+    @Transactional
     public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.getProductNumbers();
         List<Product> products = getProductByProductNumbers(productNumbers);

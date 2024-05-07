@@ -20,6 +20,8 @@ class ProductRepositoryTest {
     @Autowired
     private ProductRepository productRepository;
 
+    private static final String LATEST_PRODUCT_NUMBER = "003";
+
     @BeforeEach
     public void init() {
         var product1 = Product.builder()
@@ -39,7 +41,7 @@ class ProductRepositoryTest {
                 .build();
 
         var product3 = Product.builder()
-                .productNumber("003")
+                .productNumber(LATEST_PRODUCT_NUMBER)
                 .productType(HANDMADE)
                 .productStatus(STOP)
                 .name("팥빙수")
@@ -62,7 +64,7 @@ class ProductRepositoryTest {
                 );
     }
 
-    @DisplayName("상품 번호 리스트에 따른 상품들을 조회한다,")
+    @DisplayName("상품 번호 리스트에 따른 상품들을 조회한다.")
     @Test
     void findAllByProductNumbers() {
         var products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
@@ -73,5 +75,22 @@ class ProductRepositoryTest {
                         tuple("001", "아메리카노", SELLING),
                         tuple("002", "카페라떼", HOLD)
                 );
+    }
+
+    @DisplayName("가장 마지막에 저장된 상품 번호를 조회한다.")
+    @Test
+    void findLatestProductNumber() {
+        var latestProductNumber = productRepository.findLatestProductNumber();
+
+        assertThat(latestProductNumber).isEqualTo(LATEST_PRODUCT_NUMBER);
+    }
+
+    @DisplayName("상품이 하나도 없는 경우에는 null을 반환한다.")
+    @Test
+    void findLatestProductNumberWhenProductIsEmpty() {
+        productRepository.deleteAllInBatch();
+        var latestProductNumber = productRepository.findLatestProductNumber();
+
+        assertThat(latestProductNumber).isNull();
     }
 }

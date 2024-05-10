@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.domain.constant.ProductStatus;
 import org.example.domain.constant.ProductType;
 import org.example.dto.request.CreateProductRequest;
+import org.example.dto.response.ProductResponse;
 import org.example.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -14,6 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -134,5 +139,20 @@ class ProductControllerTest {
                     .andExpect(jsonPath("$.message").value("상품 가격이 잘못 입력되었습니다."))
                     .andExpect(jsonPath("$.data").isEmpty());
         }
+    }
+
+    @DisplayName("판매 상품을 조회한다.")
+    @Test
+    void getSellingProducts() throws Exception {
+        List<ProductResponse> result = List.of();
+
+        when(productService.getSellingProducts()).thenReturn(result);
+
+        mockMvc.perform(
+                        get("/api/v1/products/selling")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").isArray());
     }
 }

@@ -5,6 +5,7 @@ import org.example.dto.request.CreateProductRequest;
 import org.example.dto.response.ApiResponse;
 import org.example.dto.response.ProductResponse;
 import org.example.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,8 +19,9 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/selling")
-    public List<ProductResponse> getSellingProducts() {
-        return productService.getSellingProducts();
+    public ApiResponse<List<ProductResponse>> getSellingProducts() {
+        List<ProductResponse> products = productService.getSellingProducts();
+        return ApiResponse.of(HttpStatus.OK, products);
     }
 
     @PostMapping("/new")

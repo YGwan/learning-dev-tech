@@ -7,13 +7,24 @@ import org.example.domain.Product;
 import org.example.domain.constant.ProductStatus;
 import org.example.domain.constant.ProductType;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @NoArgsConstructor
 @Getter
 public class CreateProductRequest {
 
+    @NotNull
     private ProductType productType;
+
+    @NotNull
     private ProductStatus productStatus;
+
+    @NotBlank
     private String name;
+
+    @Positive
     private int price;
 
     @Builder

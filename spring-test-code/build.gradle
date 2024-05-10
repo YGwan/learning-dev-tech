@@ -4,6 +4,8 @@ dependencies {
     implementation 'com.h2database:h2'
     testImplementation 'com.h2database:h2'
 
+    //validate
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

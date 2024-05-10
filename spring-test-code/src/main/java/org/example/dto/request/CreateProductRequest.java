@@ -15,16 +15,16 @@ import javax.validation.constraints.Positive;
 @Getter
 public class CreateProductRequest {
 
-    @NotNull
+    @NotNull(message = "상품 타입은 필수입니다.")
     private ProductType productType;
 
-    @NotNull
+    @NotNull(message = "상품 상태는 필수입니다.")
     private ProductStatus productStatus;
 
-    @NotBlank
+    @NotBlank(message = "상품 이름은 필수입니다.")
     private String name;
 
-    @Positive
+    @Positive(message = "상품 가격이 잘못 입력되었습니다.")
     private int price;
 
     @Builder

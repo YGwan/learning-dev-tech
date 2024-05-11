@@ -63,7 +63,6 @@ class OrderControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("상품 번호 리스트는 필수입니다."))
-        ;
+                .andExpect(jsonPath("$.message").value("상품 번호 리스트는 필수입니다."));
     }
 }

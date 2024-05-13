@@ -54,4 +54,8 @@ public class Order extends BaseEntity {
                 .map(it -> new OrderProduct(this, it))
                 .collect(Collectors.toList());
     }
+
+    public void modifyOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

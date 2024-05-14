@@ -17,18 +17,19 @@ public class MailService {
     public boolean sendMail(String fromEmail, String email, String subject, String content) {
         boolean result = mailSendClient.sendMail(fromEmail, email, subject, content);
 
-        if (result) {
-            mailSendHistoryRepository.save(MailSendHistory.builder()
-                    .fromEmail(fromEmail)
-                    .toEmail(email)
-                    .subject(subject)
-                    .content(content)
-                    .build()
-            );
-            return true;
+        if (!result) {
+            throw new IllegalArgumentException(subject + " 메일 전송 실패");
         }
 
-        return false;
+        mailSendHistoryRepository.save(MailSendHistory.builder()
+                .fromEmail(fromEmail)
+                .toEmail(email)
+                .subject(subject)
+                .content(content)
+                .build()
+        );
+
+        return true;
     }
 
     public boolean sendMail(String email, String subject, String content) {

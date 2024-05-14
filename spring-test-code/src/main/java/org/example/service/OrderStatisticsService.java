@@ -28,12 +28,6 @@ public class OrderStatisticsService {
                 .mapToInt(Order::getTotalPrice)
                 .sum();
 
-        boolean result = mailService.sendMail(email, "[매출 통계] - " + orderDate, "총 매출 합계 : " + totalAmount);
-
-        if (!result) {
-            throw new IllegalArgumentException("매출 통계 메일 전송 실패");
-        }
-
-        return true;
+        return mailService.sendMail(email, "[매출 통계] - " + orderDate, "총 매출 합계 : " + totalAmount);
     }
 }

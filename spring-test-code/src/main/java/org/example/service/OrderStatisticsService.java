@@ -17,7 +17,7 @@ public class OrderStatisticsService {
     private final OrderRepository orderRepository;
     private final MailService mailService;
 
-    public void sendOrderStatisticsMail(LocalDate orderDate, String email) {
+    public boolean sendOrderStatisticsMail(LocalDate orderDate, String email) {
         List<Order> orders = orderRepository.findOrdersBy(
                 orderDate.atStartOfDay(),
                 orderDate.plusDays(1).atStartOfDay(),
@@ -33,5 +33,7 @@ public class OrderStatisticsService {
         if (!result) {
             throw new IllegalArgumentException("매출 통계 메일 전송 실패");
         }
+
+        return true;
     }
 }

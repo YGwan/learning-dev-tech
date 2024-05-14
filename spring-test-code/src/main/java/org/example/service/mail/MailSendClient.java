@@ -14,4 +14,8 @@ public class MailSendClient {
         System.out.println(body);
         return true;
     }
+
+    public void test() {
+        log.info("test");
+    }
 }

@@ -14,15 +14,15 @@ public class MailService {
     private final MailSendClient mailSendClient;
     private final MailSendHistoryRepository mailSendHistoryRepository;
 
-    public boolean sendMail(String fromEmail, String email, String title, String message) {
-        boolean result = mailSendClient.sendMail(fromEmail, email, title, message);
+    public boolean sendMail(String fromEmail, String email, String subject, String content) {
+        boolean result = mailSendClient.sendMail(fromEmail, email, subject, content);
 
         if (result) {
             mailSendHistoryRepository.save(MailSendHistory.builder()
                     .fromEmail(fromEmail)
                     .toEmail(email)
-                    .subject(title)
-                    .content(message)
+                    .subject(subject)
+                    .content(content)
                     .build()
             );
             return true;
@@ -31,7 +31,7 @@ public class MailService {
         return false;
     }
 
-    public boolean sendMail(String email, String title, String message) {
-        return sendMail(ADMIN_EMAIL, email, title, message);
+    public boolean sendMail(String email, String subject, String content) {
+        return sendMail(ADMIN_EMAIL, email, subject, content);
     }
 }

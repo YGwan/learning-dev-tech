@@ -42,6 +42,8 @@ class OrderServiceTest {
     @Autowired
     private OrderService orderService;
 
+    private static final LocalDateTime REGISTERED_DATE_TIME = LocalDateTime.of(2024, 5, 15, 10, 30);
+
     @BeforeEach
     void init() {
         var product1 = Product.builder()
@@ -94,14 +96,13 @@ class OrderServiceTest {
                 .productNumbers(List.of("003", "004"))
                 .build();
 
-        var registeredDateTime = LocalDateTime.now();
-        var response = orderService.createOrder(request, registeredDateTime);
+        var response = orderService.createOrder(request, REGISTERED_DATE_TIME);
 
         assertThat(response.getId()).isNotNull();
 
         assertThat(response)
                 .extracting("registeredDateTime", "totalPrice")
-                .contains(registeredDateTime, 12000);
+                .contains(REGISTERED_DATE_TIME, 12000);
 
         assertThat(response.getProducts()).hasSize(2)
                 .extracting("productNumber", "price")
@@ -118,14 +119,13 @@ class OrderServiceTest {
                 .productNumbers(List.of("003", "003"))
                 .build();
 
-        var registeredDateTime = LocalDateTime.now();
-        var response = orderService.createOrder(request, registeredDateTime);
+        var response = orderService.createOrder(request, REGISTERED_DATE_TIME);
 
         assertThat(response.getId()).isNotNull();
 
         assertThat(response)
                 .extracting("registeredDateTime", "totalPrice")
-                .contains(registeredDateTime, 14000);
+                .contains(REGISTERED_DATE_TIME, 14000);
 
         assertThat(response.getProducts()).hasSize(2)
                 .extracting("productNumber", "price")
@@ -147,7 +147,7 @@ class OrderServiceTest {
                 .productNumbers(List.of("001", "001", "002"))
                 .build();
 
-        var response = orderService.createOrder(request, LocalDateTime.now());
+        var response = orderService.createOrder(request, REGISTERED_DATE_TIME);
 
         assertThat(response.getTotalPrice()).isEqualTo(12500);
         assertThat(response.getProducts()).hasSize(3);
@@ -174,7 +174,7 @@ class OrderServiceTest {
                 .productNumbers(List.of("001", "001", "002"))
                 .build();
 
-        assertThatThrownBy(() -> orderService.createOrder(request, LocalDateTime.now()))
+        assertThatThrownBy(() -> orderService.createOrder(request, REGISTERED_DATE_TIME))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("재고가 충분하지 않은 상품이 존재합니다.");
 

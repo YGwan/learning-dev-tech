@@ -59,7 +59,8 @@ class OrderStatisticsServiceTest {
     @DisplayName("결제완료 주문들을 조회하여 매출 통계 메일을 전송한다.")
     @Test
     void sendOrderStatisticsMail() {
-        LocalDateTime now = LocalDateTime.now();
+        var orderDate = LocalDate.of(2024, 5, 15);
+        var registeredDateTime = orderDate.atTime(10, 30);
 
         Product product1 = createProduct(HANDMADE, "001", 1000);
         Product product2 = createProduct(HANDMADE, "002", 2000);
@@ -67,17 +68,17 @@ class OrderStatisticsServiceTest {
         List<Product> products = List.of(product1, product2, product3);
         productRepository.saveAll(products);
 
-        Order order1 = createPaymentCompletedOrder(products, now.with(LocalDateTime.MAX));
-        Order order2 = createPaymentCompletedOrder(products, now);
-        Order order3 = createPaymentCompletedOrder(products, now.minusDays(1));
-        Order order4 = createPaymentCompletedOrder(products, now.plusDays(1));
+        Order order1 = createPaymentCompletedOrder(products, registeredDateTime.with(LocalDateTime.MAX));
+        Order order2 = createPaymentCompletedOrder(products, registeredDateTime);
+        Order order3 = createPaymentCompletedOrder(products, registeredDateTime.minusDays(1));
+        Order order4 = createPaymentCompletedOrder(products, registeredDateTime.plusDays(1));
         orderRepository.saveAll(List.of(order1, order2, order3, order4));
 
         // stubbing ( mock 객체에 원하는 행위를 강제한다. )
         when(mailSendClient.sendMail(any(String.class), any(String.class), any(String.class), any(String.class)))
                 .thenReturn(true);
 
-        boolean result = orderStatisticsService.sendOrderStatisticsMail(LocalDate.now(), "test@test.com");
+        boolean result = orderStatisticsService.sendOrderStatisticsMail(orderDate, "test@test.com");
 
         assertThat(result).isTrue();
 

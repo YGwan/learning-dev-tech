@@ -15,7 +15,8 @@ import static org.example.domain.constant.ProductType.HANDMADE;
 
 class OrderTest {
 
-    private static final List<Product> products = new ArrayList<>();
+    private static final List<Product> PRODUCTS = new ArrayList<>();
+    private static final LocalDateTime REGISTERED_DATE_TIME = LocalDateTime.of(2024, 5, 15, 10, 30);
 
     @BeforeAll
     public static void init() {
@@ -44,16 +45,16 @@ class OrderTest {
                 .price(7000)
                 .build();
 
-        products.add(product1);
-        products.add(product2);
-        products.add(product3);
+        PRODUCTS.add(product1);
+        PRODUCTS.add(product2);
+        PRODUCTS.add(product3);
 
     }
 
     @DisplayName("주문 생성 시 상품 리스트에 따른 주문의 총 금액을 계산한다.")
     @Test
     void calculateTotalPriceWhenCreatingOrder() {
-        var order = Order.create(products, LocalDateTime.now());
+        var order = Order.create(PRODUCTS, REGISTERED_DATE_TIME);
 
         assertThat(order.getTotalPrice()).isEqualTo(15500);
     }
@@ -61,7 +62,7 @@ class OrderTest {
     @DisplayName("주문 생성 시 주문 상태는 INIT인지 확인한다.")
     @Test
     void orderStatusInitWhenCreatingOrder() {
-        var order = Order.create(products, LocalDateTime.now());
+        var order = Order.create(PRODUCTS, REGISTERED_DATE_TIME);
 
         assertThat(order.getOrderStatus()).isEqualByComparingTo(OrderStatus.INIT);
     }
@@ -69,9 +70,8 @@ class OrderTest {
     @DisplayName("주문 생성 시 등록 시간을 확인한다.")
     @Test
     void registeredTimeWhenCreatingOrder() {
-        var registeredDateTime = LocalDateTime.now();
-        var order = Order.create(products, registeredDateTime);
+        var order = Order.create(PRODUCTS, REGISTERED_DATE_TIME);
 
-        assertThat(order.getRegisteredDateTime()).isEqualTo(registeredDateTime);
+        assertThat(order.getRegisteredDateTime()).isEqualTo(REGISTERED_DATE_TIME);
     }
 }

@@ -78,10 +78,11 @@ class OrderRepositoryTest {
     @DisplayName("완료된 주문 건 중, 주문 일시 범위에 해당하는 주문 목록을 조회한다.")
     @Test
     void findOrdersBy() {
-        var orderDate = LocalDate.now();
+        var orderDate = LocalDate.of(2024, 5, 15);
+        var registeredDateTime = orderDate.atTime(10, 30);
 
-        var order1 = Order.create(products, LocalDateTime.now());
-        var order2 = Order.create(products, LocalDateTime.now());
+        var order1 = Order.create(products, registeredDateTime);
+        var order2 = Order.create(products, registeredDateTime);
         order1.modifyOrderStatus(OrderStatus.PAYMENT_COMPLETED);
 
         orderRepository.saveAll(List.of(order1, order2));

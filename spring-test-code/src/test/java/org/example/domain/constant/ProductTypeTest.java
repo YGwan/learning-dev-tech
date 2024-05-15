@@ -7,19 +7,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductTypeTest {
 
-    @DisplayName("상품 타입이 재고가 관리되어야 되는 타입인지를 확인한다.")
+    @DisplayName("HANDMADE 타입의 상품일 경우 재고가 관리될 필요가 없는 상품으로 판별한다.")
     @Test
-    void containsStockType() {
+    void containsStockTypeWhenHandMadeTypeProduct() {
         ProductType handmadeType = ProductType.HANDMADE;
+
+        var result = ProductType.containsStockType(handmadeType);
+
+        assertThat(result).isFalse();
+    }
+
+    @DisplayName("BAKERY 타입의 상품일 경우 재고가 관리될 필요가 없는 상품으로 판별한다.")
+    @Test
+    void containsStockTypeWhenBakeryTypeProduct() {
         ProductType bakeryType = ProductType.BAKERY;
+
+        var result = ProductType.containsStockType(bakeryType);
+
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("HANDMADE 타입의 상품일 경우 재고가 관리될 필요가 없는 상품으로 판별한다.")
+    @Test
+    void containsStockTypeWhenBottleTypeProduct() {
         ProductType bottleType = ProductType.BOTTLE;
 
-        boolean handmadeTypeResult = ProductType.containsStockType(handmadeType);
-        boolean bakeryTypeResult = ProductType.containsStockType(bakeryType);
-        boolean bottleTypeResult = ProductType.containsStockType(bottleType);
+        var result = ProductType.containsStockType(bottleType);
 
-        assertThat(handmadeTypeResult).isFalse();
-        assertThat(bakeryTypeResult).isTrue();
-        assertThat(bottleTypeResult).isTrue();
+        assertThat(result).isTrue();
     }
 }

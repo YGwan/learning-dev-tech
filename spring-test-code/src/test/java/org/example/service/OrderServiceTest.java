@@ -2,6 +2,8 @@ package org.example.service;
 
 import org.example.domain.Product;
 import org.example.domain.Stock;
+import org.example.domain.constant.ProductStatus;
+import org.example.domain.constant.ProductType;
 import org.example.dto.request.OrderCreateRequest;
 import org.example.repository.OrderProductRepository;
 import org.example.repository.OrderRepository;
@@ -46,38 +48,10 @@ class OrderServiceTest {
 
     @BeforeEach
     void init() {
-        var product1 = Product.builder()
-                .productNumber("001")
-                .productType(BOTTLE)
-                .productStatus(SELLING)
-                .name("아메리카노")
-                .price(4000)
-                .build();
-
-        var product2 = Product.builder()
-                .productNumber("002")
-                .productType(BAKERY)
-                .productStatus(HOLD)
-                .name("카페라떼")
-                .price(4500)
-                .build();
-
-        var product3 = Product.builder()
-                .productNumber("003")
-                .productType(HANDMADE)
-                .productStatus(STOP)
-                .name("팥빙수")
-                .price(7000)
-                .build();
-
-        var product4 = Product.builder()
-                .productNumber("004")
-                .productType(HANDMADE)
-                .productStatus(STOP)
-                .name("아이스크림")
-                .price(5000)
-                .build();
-
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct("003", HANDMADE, STOP, "팥빙수", 7000);
+        var product4 = createProduct("004", HANDMADE, STOP, "아이스크림", 5000);
         productRepository.saveAll(List.of(product1, product2, product3, product4));
     }
 
@@ -177,6 +151,15 @@ class OrderServiceTest {
         assertThatThrownBy(() -> orderService.createOrder(request, REGISTERED_DATE_TIME))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("재고가 충분하지 않은 상품이 존재합니다.");
+    }
 
+    private Product createProduct(String productNumber, ProductType productType, ProductStatus status, String name, int price) {
+        return Product.builder()
+                .productNumber(productNumber)
+                .productType(productType)
+                .productStatus(status)
+                .name(name)
+                .price(price)
+                .build();
     }
 }

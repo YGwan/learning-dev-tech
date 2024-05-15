@@ -4,6 +4,7 @@ import org.example.domain.MailSendHistory;
 import org.example.domain.Order;
 import org.example.domain.Product;
 import org.example.domain.constant.OrderStatus;
+import org.example.domain.constant.ProductStatus;
 import org.example.domain.constant.ProductType;
 import org.example.repository.MailSendHistoryRepository;
 import org.example.repository.OrderProductRepository;
@@ -11,6 +12,7 @@ import org.example.repository.OrderRepository;
 import org.example.repository.ProductRepository;
 import org.example.service.mail.MailSendClient;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.example.domain.constant.ProductStatus.SELLING;
-import static org.example.domain.constant.ProductType.HANDMADE;
+import static org.example.domain.constant.ProductStatus.*;
+import static org.example.domain.constant.ProductType.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -48,6 +51,23 @@ class OrderStatisticsServiceTest {
     @MockBean
     private MailSendClient mailSendClient;
 
+    private final List<Product> products = new ArrayList<>();
+
+    @BeforeEach
+    void init() {
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct("003", HANDMADE, STOP, "팥빙수", 7000);
+        var product4 = createProduct("004", HANDMADE, STOP, "아이스크림", 5000);
+
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+        products.add(product4);
+
+        productRepository.saveAll(products);
+    }
+
     @AfterEach
     void end() {
         orderProductRepository.deleteAllInBatch();
@@ -62,16 +82,16 @@ class OrderStatisticsServiceTest {
         var orderDate = LocalDate.of(2024, 5, 15);
         var registeredDateTime = orderDate.atTime(10, 30);
 
-        Product product1 = createProduct(HANDMADE, "001", 1000);
-        Product product2 = createProduct(HANDMADE, "002", 2000);
-        Product product3 = createProduct(HANDMADE, "003", 3000);
-        List<Product> products = List.of(product1, product2, product3);
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct("003", HANDMADE, STOP, "팥빙수", 7000);
+        var products = List.of(product1, product2, product3);
         productRepository.saveAll(products);
 
-        Order order1 = createPaymentCompletedOrder(products, registeredDateTime.with(LocalDateTime.MAX));
-        Order order2 = createPaymentCompletedOrder(products, registeredDateTime);
-        Order order3 = createPaymentCompletedOrder(products, registeredDateTime.minusDays(1));
-        Order order4 = createPaymentCompletedOrder(products, registeredDateTime.plusDays(1));
+        var order1 = createPaymentCompletedOrder(products, registeredDateTime.with(LocalDateTime.MAX));
+        var order2 = createPaymentCompletedOrder(products, registeredDateTime);
+        var order3 = createPaymentCompletedOrder(products, registeredDateTime.minusDays(1));
+        var order4 = createPaymentCompletedOrder(products, registeredDateTime.plusDays(1));
         orderRepository.saveAll(List.of(order1, order2, order3, order4));
 
         // stubbing ( mock 객체에 원하는 행위를 강제한다. )
@@ -85,22 +105,22 @@ class OrderStatisticsServiceTest {
         List<MailSendHistory> histories = mailSendHistoryRepository.findAll();
         assertThat(histories).hasSize(1)
                 .extracting("content")
-                .contains("총 매출 합계 : 6000");
+                .contains("총 매출 합계 : 15500");
     }
 
     private Order createPaymentCompletedOrder(List<Product> products, LocalDateTime now) {
-        Order order = Order.create(products, now);
+        var order = Order.create(products, now);
         order.modifyOrderStatus(OrderStatus.PAYMENT_COMPLETED);
         return order;
     }
 
-    private Product createProduct(ProductType productType, String productNumber, int price) {
+    private Product createProduct(String productNumber, ProductType productType, ProductStatus status, String name, int price) {
         return Product.builder()
-                .productType(productType)
                 .productNumber(productNumber)
+                .productType(productType)
+                .productStatus(status)
+                .name(name)
                 .price(price)
-                .productStatus(SELLING)
-                .name("메뉴 이름")
                 .build();
     }
 }

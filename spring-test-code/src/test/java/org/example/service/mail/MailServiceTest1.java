@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class MailServiceTest1 {
 
     private final MailSendClient mailSendClient = Mockito.mock(MailSendClient.class);
-    private final MailSendHistoryRepository mailSendHistoryRepository  = Mockito.mock(MailSendHistoryRepository.class);
+    private final MailSendHistoryRepository mailSendHistoryRepository = Mockito.mock(MailSendHistoryRepository.class);
     private final MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
 
     @DisplayName("메일 전송이 정상적으로 완료되면 true값이 반환된다.")

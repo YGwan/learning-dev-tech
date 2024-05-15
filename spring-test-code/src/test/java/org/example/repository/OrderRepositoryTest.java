@@ -3,14 +3,14 @@ package org.example.repository;
 import org.example.domain.Order;
 import org.example.domain.Product;
 import org.example.domain.constant.OrderStatus;
-import org.junit.jupiter.api.BeforeEach;
+import org.example.domain.constant.ProductStatus;
+import org.example.domain.constant.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,52 +32,11 @@ class OrderRepositoryTest {
 
     private int totalPrice;
 
-    @BeforeEach
-    void init() {
-        var product1 = Product.builder()
-                .productNumber("001")
-                .productType(BOTTLE)
-                .productStatus(SELLING)
-                .name("아메리카노")
-                .price(4000)
-                .build();
-
-        var product2 = Product.builder()
-                .productNumber("002")
-                .productType(BAKERY)
-                .productStatus(HOLD)
-                .name("카페라떼")
-                .price(4500)
-                .build();
-
-        var product3 = Product.builder()
-                .productNumber("003")
-                .productType(HANDMADE)
-                .productStatus(STOP)
-                .name("팥빙수")
-                .price(7000)
-                .build();
-
-        var product4 = Product.builder()
-                .productNumber("004")
-                .productType(HANDMADE)
-                .productStatus(STOP)
-                .name("아이스크림")
-                .price(5000)
-                .build();
-
-        products = List.of(product1, product2, product3, product4);
-
-        totalPrice = products.stream()
-                .mapToInt(Product::getPrice)
-                .sum();
-
-        productRepository.saveAll(products);
-    }
-
     @DisplayName("완료된 주문 건 중, 주문 일시 범위에 해당하는 주문 목록을 조회한다.")
     @Test
     void findOrdersBy() {
+        setProducts();
+
         var orderDate = LocalDate.of(2024, 5, 15);
         var registeredDateTime = orderDate.atTime(10, 30);
 
@@ -96,5 +55,29 @@ class OrderRepositoryTest {
                 .containsExactlyInAnyOrder(
                         tuple(totalPrice, OrderStatus.PAYMENT_COMPLETED)
                 );
+    }
+
+    private void setProducts() {
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct("003", HANDMADE, STOP, "팥빙수", 7000);
+
+        products = List.of(product1, product2, product3);
+
+        totalPrice = products.stream()
+                .mapToInt(Product::getPrice)
+                .sum();
+
+        productRepository.saveAll(products);
+    }
+
+    private Product createProduct(String productNumber, ProductType productType, ProductStatus status, String name, int price) {
+        return Product.builder()
+                .productNumber(productNumber)
+                .productType(productType)
+                .productStatus(status)
+                .name(name)
+                .price(price)
+                .build();
     }
 }

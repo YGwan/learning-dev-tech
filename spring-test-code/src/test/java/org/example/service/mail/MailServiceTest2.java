@@ -16,7 +16,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
- * 단위테스트 - @ExtendWith(MockitoExtension.class)로 Mocking
+ * 단위테스트 - @Mock, @InjectMocks Mocking
  */
 @ExtendWith(MockitoExtension.class)
 class MailServiceTest2 {

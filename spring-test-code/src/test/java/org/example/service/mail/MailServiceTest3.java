@@ -35,13 +35,8 @@ class MailServiceTest3 {
     @Test
     void sendMail() {
         // stubbing ( mock 객체에 원하는 행위를 강제한다. )
-//        when(mailSendClient.sendMail(anyString(), anyString(), anyString(), anyString()))
-//                .thenReturn(true);
-
-        // spy일 경우 stubbing 하는 방법
-        doReturn(true)
-                .when(mailSendClient)
-                .sendMail(anyString(), anyString(), anyString(), anyString());
+        when(mailSendClient.sendMail(anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(true);
 
         boolean result = mailService.sendMail("fromEmail", "email", "subject", "content");
 
@@ -52,9 +47,8 @@ class MailServiceTest3 {
     @DisplayName("메일 전송이 실패하면 IllegalArgumentException 에러를 발생시킨다.")
     @Test
     void sendMailWhenFail() {
-        doReturn(false)
-                .when(mailSendClient)
-                .sendMail(anyString(), anyString(), anyString(), anyString());
+        when(mailSendClient.sendMail(anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(false);
 
         var subject = "subject";
 

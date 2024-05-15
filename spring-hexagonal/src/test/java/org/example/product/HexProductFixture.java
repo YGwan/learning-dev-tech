@@ -9,7 +9,7 @@ import org.example.product.domain.DiscountPolicy;
 import org.example.product.domain.Product;
 import org.springframework.http.MediaType;
 
-public class ProductFixture {
+public class HexProductFixture {
 
     public static Product product() {
         return new Product(

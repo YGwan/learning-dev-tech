@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.example.product.ProductFixture.*;
+import static org.example.product.HexProductFixture.*;
 
 public class ProductApiTest extends ApiTest {
 

@@ -1,9 +1,6 @@
 package org.example.service;
 
-import org.example.domain.Product;
 import org.example.domain.Stock;
-import org.example.domain.constant.ProductStatus;
-import org.example.domain.constant.ProductType;
 import org.example.dto.request.OrderCreateRequest;
 import org.example.repository.OrderProductRepository;
 import org.example.repository.OrderRepository;
@@ -24,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.example.domain.constant.ProductStatus.*;
 import static org.example.domain.constant.ProductType.*;
+import static org.example.utils.ProductFixture.createProduct;
 
 //@Transactional
 @SpringBootTest
@@ -151,15 +149,5 @@ class OrderServiceTest {
         assertThatThrownBy(() -> orderService.createOrder(request, REGISTERED_DATE_TIME))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("재고가 충분하지 않은 상품이 존재합니다.");
-    }
-
-    private Product createProduct(String productNumber, ProductType productType, ProductStatus status, String name, int price) {
-        return Product.builder()
-                .productNumber(productNumber)
-                .productType(productType)
-                .productStatus(status)
-                .name(name)
-                .price(price)
-                .build();
     }
 }

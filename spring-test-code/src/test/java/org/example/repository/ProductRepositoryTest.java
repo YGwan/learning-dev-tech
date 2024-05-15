@@ -1,7 +1,5 @@
 package org.example.repository;
 
-import org.example.domain.Product;
-import org.example.domain.constant.ProductStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.example.domain.constant.ProductStatus.*;
-import static org.example.domain.constant.ProductType.HANDMADE;
+import static org.example.domain.constant.ProductType.*;
+import static org.example.utils.ProductFixture.createProduct;
 
 @DataJpaTest
 class ProductRepositoryTest {
@@ -23,9 +22,9 @@ class ProductRepositoryTest {
     @DisplayName("판매상태에 따른 상품들을 조회한다.")
     @Test
     void findAllByProductStatus() {
-        var product1 = createProduct("001", SELLING, "아메리카노");
-        var product2 = createProduct("002", HOLD, "카페라떼");
-        var product3 = createProduct("003", STOP, "팥빙수");
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct("003", HANDMADE, STOP, "팥빙수", 7000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
         var products = productRepository.findAllByProductStatusIn(List.of(SELLING, HOLD));
@@ -41,9 +40,9 @@ class ProductRepositoryTest {
     @DisplayName("상품 번호 리스트에 따른 상품들을 조회한다.")
     @Test
     void findAllByProductNumbers() {
-        var product1 = createProduct("001", SELLING, "아메리카노");
-        var product2 = createProduct("002", HOLD, "카페라떼");
-        var product3 = createProduct("003", STOP, "팥빙수");
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct("003", HANDMADE, STOP, "팥빙수", 7000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
         var products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
@@ -61,9 +60,9 @@ class ProductRepositoryTest {
     void findLatestProductNumber() {
         var lastProductNumber = "003";
 
-        var product1 = createProduct("001", SELLING, "아메리카노");
-        var product2 = createProduct("002", HOLD, "카페라떼");
-        var product3 = createProduct(lastProductNumber, STOP, "팥빙수");
+        var product1 = createProduct("001", BAKERY, SELLING, "아메리카노", 4000);
+        var product2 = createProduct("002", BOTTLE, HOLD, "카페라떼", 4500);
+        var product3 = createProduct(lastProductNumber, HANDMADE, STOP, "팥빙수", 7000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
         var latestProductNumber = productRepository.findLatestProductNumber();
@@ -77,14 +76,5 @@ class ProductRepositoryTest {
         var latestProductNumber = productRepository.findLatestProductNumber();
 
         assertThat(latestProductNumber).isNull();
-    }
-
-    private Product createProduct(String productNumber, ProductStatus status, String name) {
-        return Product.builder()
-                .productNumber(productNumber)
-                .productType(HANDMADE)
-                .productStatus(status)
-                .name(name)
-                .build();
     }
 }

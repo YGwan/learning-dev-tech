@@ -3,8 +3,6 @@ package org.example.repository;
 import org.example.domain.Order;
 import org.example.domain.Product;
 import org.example.domain.constant.OrderStatus;
-import org.example.domain.constant.ProductStatus;
-import org.example.domain.constant.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.example.domain.constant.ProductStatus.*;
 import static org.example.domain.constant.ProductType.*;
+import static org.example.utils.ProductFixture.createProduct;
 
 @DataJpaTest
 class OrderRepositoryTest {
@@ -69,15 +68,5 @@ class OrderRepositoryTest {
                 .sum();
 
         productRepository.saveAll(products);
-    }
-
-    private Product createProduct(String productNumber, ProductType productType, ProductStatus status, String name, int price) {
-        return Product.builder()
-                .productNumber(productNumber)
-                .productType(productType)
-                .productStatus(status)
-                .name(name)
-                .price(price)
-                .build();
     }
 }

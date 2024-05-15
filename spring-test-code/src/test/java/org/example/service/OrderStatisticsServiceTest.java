@@ -4,8 +4,6 @@ import org.example.domain.MailSendHistory;
 import org.example.domain.Order;
 import org.example.domain.Product;
 import org.example.domain.constant.OrderStatus;
-import org.example.domain.constant.ProductStatus;
-import org.example.domain.constant.ProductType;
 import org.example.repository.MailSendHistoryRepository;
 import org.example.repository.OrderProductRepository;
 import org.example.repository.OrderRepository;
@@ -27,6 +25,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.example.domain.constant.ProductStatus.*;
 import static org.example.domain.constant.ProductType.*;
+import static org.example.utils.ProductFixture.createProduct;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -112,15 +111,5 @@ class OrderStatisticsServiceTest {
         var order = Order.create(products, now);
         order.modifyOrderStatus(OrderStatus.PAYMENT_COMPLETED);
         return order;
-    }
-
-    private Product createProduct(String productNumber, ProductType productType, ProductStatus status, String name, int price) {
-        return Product.builder()
-                .productNumber(productNumber)
-                .productType(productType)
-                .productStatus(status)
-                .name(name)
-                .price(price)
-                .build();
     }
 }

@@ -4,18 +4,17 @@ import org.example.domain.MailSendHistory;
 import org.example.domain.Order;
 import org.example.domain.Product;
 import org.example.domain.constant.OrderStatus;
+import org.example.integration.ServiceTestContext;
 import org.example.repository.MailSendHistoryRepository;
 import org.example.repository.OrderProductRepository;
 import org.example.repository.OrderRepository;
 import org.example.repository.ProductRepository;
-import org.example.service.mail.MailSendClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class OrderStatisticsServiceTest {
+class OrderStatisticsServiceTest extends ServiceTestContext {
 
     @Autowired
     private OrderStatisticsService orderStatisticsService;
@@ -46,9 +45,6 @@ class OrderStatisticsServiceTest {
 
     @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
-
-    @MockBean
-    private MailSendClient mailSendClient;
 
     private final List<Product> products = new ArrayList<>();
 

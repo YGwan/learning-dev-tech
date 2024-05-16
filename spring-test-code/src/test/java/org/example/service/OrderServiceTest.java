@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.domain.Stock;
 import org.example.dto.request.OrderCreateRequest;
+import org.example.integration.ServiceTestContext;
 import org.example.repository.OrderProductRepository;
 import org.example.repository.OrderRepository;
 import org.example.repository.ProductRepository;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,8 +24,7 @@ import static org.example.domain.constant.ProductType.*;
 import static org.example.utils.ProductFixture.createProduct;
 
 //@Transactional
-@SpringBootTest
-class OrderServiceTest {
+class OrderServiceTest extends ServiceTestContext {
 
     @Autowired
     private ProductRepository productRepository;

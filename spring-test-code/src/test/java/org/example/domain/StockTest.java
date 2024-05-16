@@ -1,7 +1,12 @@
 package org.example.domain;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
+
+import java.util.Collection;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -42,5 +47,28 @@ class StockTest {
         assertThatThrownBy(() -> stock.deductQuantity(quantity))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("재고 수량이 부족합니다.");
+    }
+
+    @DisplayName("재고 차감 시나리오")
+    @TestFactory
+    Collection<DynamicTest> stockDeductionDynamicTest() {
+        Stock stock = Stock.create("001", 1);
+
+        return List.of(
+                DynamicTest.dynamicTest("재고를 주어진 개수만큼 차감", () -> {
+                    int quantity = 1;
+
+                    stock.deductQuantity(quantity);
+
+                    assertThat(stock.getQuantity()).isZero();
+                }),
+                DynamicTest.dynamicTest("재고의 수량이 주문 수량보다 적을 경우 에러를 발생시킨다.", () -> {
+                    int quantity = 1;
+
+                    assertThatThrownBy(() -> stock.deductQuantity(quantity))
+                            .isInstanceOf(IllegalArgumentException.class)
+                            .hasMessage("재고 수량이 부족합니다.");
+                })
+        );
     }
 }

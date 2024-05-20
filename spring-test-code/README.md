@@ -104,6 +104,7 @@
 <br>
 
 ## 통합 테스트 환경 구성 관련 어노테이션
+- [test autoConfiguration 공식 문서](https://docs.spring.io/spring-boot/docs/current/reference/html/test-auto-configuration.html)
 
 <br>
 
@@ -232,8 +233,8 @@ Mock : 행위 검증
 - @ExtendWith(MockitoExtension.class)
   - JUnit 5와 함께 Mockito를 사용하기 위한 어노테이션이다.
   - Mockito의 어노테이션(@Mock, @InjectMocks 등)을 쉽게 사용할 수 있도록 설정해준다.
-    - 실제로, 위와 같은 어노테이션을 사용할때 @ExtendWith(MockitoExtension.class) 설정이 없다면 에러를 발생시킨다.
-    - Mock객체를 위와 같은 어노테이션 없이 직접 구현하면 @ExtendWith(MockitoExtension.class) 설정이 필요없다. Mockito.mock(<class명>.class)
+    - 실제로, 위와 같은 어노테이션을 사용할때 설정이 없다면 에러를 발생시킨다.
+    - Mock객체를 직접 구현하면(Mockito.mock(<class명>.class)), 사용 X
 
 <br>
 
@@ -251,6 +252,9 @@ Mock : 행위 검증
 
 - 테스트 코드는 개발자가 다 제어할 수 있는 요소를 사용해야한다.
   - LocalDate.now() 같이 테스트 시점이나 상황(timezone)으로 달라질 가능성이 존재할 경우 지양하는 것이 좋다.
+
+<br>
+
 - 테스트 간에 독립성을 보장해야한다.
   - 테스트 간의 순서가 존재하면 X
   - 테스트 간의 공유 변수 존재 X

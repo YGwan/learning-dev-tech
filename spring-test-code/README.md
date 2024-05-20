@@ -53,6 +53,7 @@
 ### JUnit5
 - 단위 테스트를 위한 테스트 프레임워크
 - 자바 기반으로 동작한다. (자바 8버전 이상부터 사용 가능)
+- [junit5 공식 홈페이지](https://junit.org/junit5/docs/current/user-guide/)
 - 여러 어노테이션 제공
   - @Test : 테스트 메서드임을 선언하는데 사용
   - @DisplayName : 테스트 클래스 & 메서드의 사용자 정의(설명)을 선언하는데 사용
@@ -62,7 +63,7 @@
   - @AfterAll : static으로 선언되며, 모든 테스트 메소드가 실행된 후에 딱 한 번 호출되어야 하는 정적 메소드를 지정하는데 사용
   - @Nested : 중첩된 테스트 클래스를 정의하는 데 사용되어, 테스트를 논리적으로 그룹화하고 클래스 구조를 명확하게 표현하는데 사용
 
-<br>
+  - <br>
 
 ### AssertJ
 - 테스트 코드 작성을 원활하게 돕는 테스트 라이브러리
@@ -114,10 +115,6 @@
 
 <br>
 
----
-
-<br>
-
 ``` 
 
 Stub과 Mock을 구분할 필요가 있다.
@@ -126,45 +123,54 @@ Mock : 행위 검증
 
 ```
 
+<br>
+
+---
+
 ### Mockito
 - 단위 테스트를 위해 모의 객체를 생성하고 관리하는데 사용하는 java 오픈소스 프레임워크
 - [Mockito 공식 홈페이지](https://site.mockito.org/)
 
-@MockMvc
-- 컨트롤러 레이어를 단위 테스트할 때 유용하며, 실제 서버를 구동하지 않고도 HTTP 요청을 생성하고 응답을 검증할 수 있게 해줌
+<br>
 
-@Mock
-- Mock 객체를 생성할 때 사용
-- 생성된 Mock 객체는 실제 객체 대신 사용되며, 특정 동작을 정의하고 호출 검증이 가능하다.
-- @ExtendWith(MockitoExtension.class) 어노테이션을 통해 Mock 어노테이션을 활성화 할 수 있다.
-
-@MockBean
-- 통합 테스트 환경에서, 스프링 컨텍스트 내에서 특정 빈을 모킹할때 사용
-- 스프링 컨텍스트에 있는 Bean 객체를 Mockito의 Mock 객체로 갈아 끼우겠다는 의미 (실제 빈 대신 모킹 빈 주입하여 테스트 환경 구성)
-
-@Spy
-- 실제 객체를 감시하는 스파이 객체를 생성하여 일부 메서드를 모킹하거나 실제 동작을 사용
-
-@SpyBean
-- 통합 테스트 환경에서, 스프링 컨텍스트 내에서 특정 빈을 모킹할때 사용
-- 스프링 컨텍스트에 있는 Bean 객체를 Mockito의 Spy 객체로 갈아 끼우겠다는 의미 (실제 빈 대신 모킹 빈 주입하여 테스트 환경 구성)
-
-@InjectMocks
-- 테스트 대상 클래스의 인스턴스를 생성하고, 그 클래스가 의존하는 객체들을 Mock 객체들(@Mock, @Spy)로 자동으로 주입해주는 역할
-- 테스트 대상 클래스의 생성자, 필드, 또는 세터 메서드를 통해 의존성을 주입할 수 있습니다.
-
-@ExtendWith(MockitoExtension.class)
-- JUnit 5와 함께 Mockito를 사용하기 위한 어노테이션이다.
-- Mockito의 어노테이션(@Mock, @InjectMocks 등)을 쉽게 사용할 수 있도록 설정해준다.
-  - 실제로, 위와 같은 어노테이션을 사용할때 @ExtendWith(MockitoExtension.class) 설정이 없다면 에러를 발생시킨다.
-  - Mock객체를 위와 같은 어노테이션 없이 직접 구현하면 @ExtendWith(MockitoExtension.class) 설정이 필요없다. Mockito.mock(<class명>.class)
-
----
-
-Mocking
+### Mocking
 - 스프링이 뜰 경우 (스프링 컨텍스트가 있는 경우) - 통합 테스트 상태 : @MockBean @SpyBean 사용
 - 스프링이 안 뜰 경우 (스프링 컨텍스트가 없는 경우) - 단위 테스트 상태 : Mockito.mock(클래스 명.class), @Mock, @Spy @InjectMocks
-
 - Mock 객체에 기본적으로 아무것도 지정하지 않으면 예외가 발생하는 것이 아닌, 기본값으로 자동 설정됨
 
----
+<br>
+
+### Mock관련 어노테이션
+
+- @MockMvc
+  - 컨트롤러 레이어를 단위 테스트할 때 유용하며, 실제 서버를 구동하지 않고도 HTTP 요청을 생성하고 응답을 검증할 수 있게 해줌
+
+- @Mock
+  - Mock 객체를 생성할 때 사용
+  - 생성된 Mock 객체는 실제 객체 대신 사용되며, 특정 동작을 정의하고 호출 검증이 가능하다.
+  - @ExtendWith(MockitoExtension.class) 어노테이션을 통해 Mock 어노테이션을 활성화 할 수 있다.
+
+- @MockBean
+  - 통합 테스트 환경에서, 스프링 컨텍스트 내에서 특정 빈을 모킹할때 사용
+  - 스프링 컨텍스트에 있는 Bean 객체를 Mockito의 Mock 객체로 갈아 끼우겠다는 의미 (실제 빈 대신 모킹 빈 주입하여 테스트 환경 구성)
+
+- @Spy
+  - 실제 객체를 감시하는 스파이 객체를 생성하여 일부 메서드를 모킹하거나 실제 동작을 사용
+
+- @SpyBean
+  - 통합 테스트 환경에서, 스프링 컨텍스트 내에서 특정 빈을 모킹할때 사용
+  - 스프링 컨텍스트에 있는 Bean 객체를 Mockito의 Spy 객체로 갈아 끼우겠다는 의미 (실제 빈 대신 모킹 빈 주입하여 테스트 환경 구성)
+
+- @InjectMocks
+  - 테스트 대상 클래스의 인스턴스를 생성하고, 그 클래스가 의존하는 객체들을 Mock 객체들(@Mock, @Spy)로 자동으로 주입해주는 역할
+  - 테스트 대상 클래스의 생성자, 필드, 또는 세터 메서드를 통해 의존성을 주입할 수 있습니다.
+
+- @ExtendWith(MockitoExtension.class)
+  - JUnit 5와 함께 Mockito를 사용하기 위한 어노테이션이다.
+  - Mockito의 어노테이션(@Mock, @InjectMocks 등)을 쉽게 사용할 수 있도록 설정해준다.
+    - 실제로, 위와 같은 어노테이션을 사용할때 @ExtendWith(MockitoExtension.class) 설정이 없다면 에러를 발생시킨다.
+    - Mock객체를 위와 같은 어노테이션 없이 직접 구현하면 @ExtendWith(MockitoExtension.class) 설정이 필요없다. Mockito.mock(<class명>.class)
+
+<br>
+<br>
+<br>

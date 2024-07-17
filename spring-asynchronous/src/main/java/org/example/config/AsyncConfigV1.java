@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.concurrent.Executor;
 
-import static org.example.prefix.TaskExecutor.*;
+import static org.example.prefix.TaskExecutorData.*;
 
 @Profile("v1")
 @Configuration

@@ -7,8 +7,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.concurrent.Executor;
 
-import static org.example.prefix.TaskExecutor.TASK_EXECUTOR_TEST_V2_PREFIX;
-import static org.example.prefix.TaskExecutor.getThreadPoolTaskExecutor;
+import static org.example.prefix.TaskExecutorData.TASK_EXECUTOR_TEST_V2_PREFIX;
+import static org.example.prefix.TaskExecutorData.getThreadPoolTaskExecutor;
 
 @Profile("v2")
 @EnableAsync

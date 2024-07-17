@@ -5,10 +5,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class TaskExecutor {
+public class TaskExecutorData {
 
+    public static final String TASK_EXECUTOR_DEFAULT_BEAN_NAME = "SimpleAsyncTaskExecutor";
     public static final String TASK_EXECUTOR_TEST_1_BEAN_NAME = "TaskExecutorTest1";
     public static final String TASK_EXECUTOR_TEST_2_BEAN_NAME = "TaskExecutorTest2";
+    public static final String TASK_EXECUTOR_TEST_V2_BEAN_NAME = "applicationTaskExecutor";
 
     public static final String TASK_EXECUTOR_TEST_1_PREFIX = "TaskExecutorTest1-";
     public static final String TASK_EXECUTOR_TEST_2_PREFIX = "TaskExecutorTest2-";

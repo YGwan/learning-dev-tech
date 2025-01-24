@@ -7,4 +7,4 @@ include 'spring-transaction'
 include 'spring-aop'
 include 'spring-test-code'
 include 'spring-asynchronous'
-
+include 'spring-security'
